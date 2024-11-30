@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>File Upload and Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .upload-section {
+            width: 45%;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .search-section {
+            width: 45%;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .search-section input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-right: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-section button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .search-section button:hover {
+            background-color: #45a049;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .file-label {
+            cursor: pointer;
+            color: #4CAF50;
+            text-decoration: underline;
+        }
+
+        .file-label:hover {
+            color: #45a049;
+        }
+
+        .uploaded-files {
+            margin-top: 20px;
+        }
+
+        .uploaded-files p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>File Upload and Search</h1>
+</header>
+
+<div class="container">
+    <!-- File Upload Section -->
+    <div class="upload-section">
+        <h3>Upload File</h3>
+        <input type="file" id="fileInput" onchange="handleFileUpload()">
+        <label for="fileInput" class="file-label">Click here to upload a file</label>
+
+        <div class="uploaded-files">
+            <h4>Uploaded Files:</h4>
+            <ul id="fileList">
+                <!-- Dynamically added file names will appear here -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- Search Section -->
+    <div class="search-section">
+        <h3>Search Uploaded Files</h3>
+        <input type="text" id="searchInput" placeholder="Enter file name to search">
+        <button onclick="searchFile()">Search</button>
+
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script>
+    let uploadedFiles = [];
+
+    // Handle file upload
+    function handleFileUpload() {
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+        
+        // Get the uploaded file name
+        const fileName = fileInput.files[0].name;
+        
+        // Add the file name to the list of uploaded files
+        uploadedFiles.push(fileName);
+        
+        // Display the uploaded file in the list
+        const listItem = document.createElement('li');
+        listItem.textContent = fileName;
+        fileList.appendChild(listItem);
+
+        // Clear the file input after upload
+        fileInput.value = '';
+    }
+
+    // Handle search functionality
+    function searchFile() {
+        const searchInput = document.getElementById('searchInput').value.toLowerCase();
+        const searchResult = document.getElementById('searchResult');
+        
+        if (searchInput === '') {
+            searchResult.innerHTML = ''; // No search input
+            return;
+        }
+        
+        const filteredFiles = uploadedFiles.filter(file => file.toLowerCase().includes(searchInput));
+        
+        if (filteredFiles.length > 0) {
+            searchResult.innerHTML = `<strong>Found files:</strong><ul>${filteredFiles.map(file => `<li>${file}</li>`).join('')}</ul>`;
+        } else {
+            searchResult.innerHTML = `<strong>No files found matching "${searchInput}".</strong>`;
+        }
+    }
+</script>
+
+</body>
+</html>

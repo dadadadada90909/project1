@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload with Search</title>
+    <link rel="stylesheet" href="mainpage.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <ul>
+            <li><a href="Login.jsp">Login</a></li>
+            <li><a href="memberRegister.jsp">Registration</a></li>
+        </ul>
+        <!-- Upload button -->
+        <input type="file" id="fileUpload" class="upload-btn">
+    </nav>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search uploaded files...">
+    </div>
+
+    <!-- File preview section -->
+    <div id="previewContainer">
+        <!-- Dynamically loaded previews will go here -->
+    </div>
+
+    <script src="mainpage.js"></script>
+</body>
+</html>
